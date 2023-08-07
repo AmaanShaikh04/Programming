@@ -1,0 +1,35 @@
+<html>
+ <head> 
+  <script type="text/javascript">
+function ValidateContactForm()
+{
+var email = document.ContactForm.Email;
+var no=document.ContactForm.Mobile;
+if (email.value == "")
+{
+window.alert("Please enter a valid e-mail address. It can not be kept blank");
+email.focus();
+}
+if (email.value.indexOf("@", 0) < 0)
+{
+window.alert("Please enter a valid e-mail address.");
+email.focus();
+return false;
+}
+if (no.value == "")
+{
+window.alert("Please enter a valid Mobile number. It can not be kept blank");
+no.focus();
+return false;
+}
+}
+</script> 
+ </head> 
+ <body> 
+  <form name="ContactForm" method="post" onsubmit="return ValidateContactForm();"> 
+   <p> Email: <input type="text" name="Email"> </p> 
+   <p> Mobile: <input type="number" name="Mobile"> </p> 
+   <p> <input type="submit" name="sub" value="Submit"> </p> 
+  </form> 
+ </body>
+</html>

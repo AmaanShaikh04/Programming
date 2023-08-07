@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=ClassB
+comment0.text=\r\n\ Write\ a\ program\ to\r\n\r\n\ \ \ \ \ \ \ \ \ i.\ Create\ a\ package\ named\ "SamplePackage".\ Add\ class\ "ClassA"\ in\ the\ package\ (Use\ package\ statement).\r\n\r\n\ \ \ \ \ \ \ \ \ ii.\ Create\ a\ method\ \ display()\ in\ the\ class.\ \r\n\r\n\ \ \ \ \ \ \ \ \ iii.\ Create\ another\ class\ "ClassB"\ which\ should\ not\ be\ part\ of\ SamplePackage.\ (Use\ import\ statement\ to\ import\ SamplePackage)\r\n\r\n\ \ \ \ \ \ \ \ \ \ iv.\ Create\ object\ of\ ClassA\ in\ ClassB.\r\n\r\n\ \ \ \ \ \ \ \ \ \ v.\ Call\ display()\ method\ to\ display\ the\ message\ "I\ am\ in\ ClassA\ display()".\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+numComments=2

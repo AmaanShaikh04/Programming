@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Toggle</title>
+        <script>
+            function swapcase(str)
+            {
+                return str.replace(/([a-z]+)|([A-Z]+)/g, function(match, chr) 
+                {
+                return chr?match.toUpperCase():match.toLowerCase();
+                });
+            }
+            swapcase("AaBbc");
+        </script>
+    </head>
+</html>

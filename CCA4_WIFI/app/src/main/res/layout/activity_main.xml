@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:text="CCA 4 Amaan Shaikh WIFI on or off project" />
+
+    <Button
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:onClick="enableWifi"
+        android:text="WIFI ON" />
+
+    <Button
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:onClick="disableWifi"
+        android:text="WIFI OFF" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click wifi on or off to enable or disable wifi"
+        android:textAlignment="center" />
+
+</LinearLayout>

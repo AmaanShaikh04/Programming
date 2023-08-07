@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Age Calculator
+	</title>
+	<script>
+		today_date=prompt("Enter todays date");
+		var today=new Date(today_date);
+		var now_year=today.getFullYear();
+		var now_month=today.getMonth();
+		var now_day=today.getDay();
+		birth_date=prompt("Enter your birth date");
+		var birth=new Date(birth_date);
+		var birth_year=birth.getFullYear();
+		var birth_month=birth.getMonth();
+		var birth_day=birth.getDay();
+		var age=now_year-birth_year;
+		var age_month=now_month-birth_year;
+		var age_day=now_day-birth_day;
+		document.write("You are "+age+" years "+age_month+" months"+age_day+" days old");
+	</script>
+</head>
+</html>

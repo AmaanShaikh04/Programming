@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>1st letter b</title>
+        <script>
+      	var heaven=["34","bodacious","barbecues","begin","whatever","by","battering","true","bacon"];
+        secretMessage = heaven.map(function(heaven) 
+        {
+        return heaven.charAt(0);
+        }
+        );
+        var i;
+        var OnlyB=secretMessage;
+        document.write("The letters starting with b are:<br>");
+        for(i=0;i<9;i++)
+        {
+        if(OnlyB[i]=='b')
+        {
+          var string=heaven[i];
+          document.write(string+"  ");
+        }
+        }
+        //document.write(secretMessage.join(''));
+        </script>
+    </head>
+</html>

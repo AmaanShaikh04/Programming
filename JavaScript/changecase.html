@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Case Change</title>
+        <script>
+            var str=prompt("Enter your string");
+            function changecase(str)
+            {
+                if(str.length<3)
+                    return str.toUpperCase();
+                else
+                    part1=str.toLowerCase();
+                part2=str.substring(3,str.length);
+                return (part1+part2);
+            }
+            var str1=changecase(str);
+            document.write(str1);
+        </script>
+    </head>
+</html>

@@ -1,0 +1,28 @@
+<html>
+ <head> 
+ </head>
+ <body> 
+  <form name="form" method="post" onclick="return validation()"> 
+   <p> Your Name: <input type="text" name="name"> </p> 
+   <p> <input type="submit" name="sub" value="Submit"> </p> 
+  </form> 
+  <script type="text/javascript">
+function validation()
+{
+var a = document.form.name.value;
+if(a=="")
+{
+alert("Please Enter Your Name");
+document.form.name.focus();
+return false;
+}
+if(!isNaN(a))
+{
+alert("Please Enter Only Characters");
+document.form.name.select();
+return false;
+}
+}
+</script> 
+ </body>
+</html>

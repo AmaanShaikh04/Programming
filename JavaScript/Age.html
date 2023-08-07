@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Age</title>
+        <script>
+            Odate=prompt("Enter today's date");
+            var today=new Date(Odate);
+            var year1=today.getFullYear();
+            var month1=today.getMonth();
+            var day1=today.getDate();
+            birth_date=prompt("Enter your birthday");
+            var birth=new Date(birth_date);
+            var year2=birth.getFullYear();
+            var month2=birth.getMonth();
+            var day2= birth.getDate();
+            var age=year1-year2;
+            var age_month=month1-month2;
+            var age_day=day1-day2;
+            document.write("You are"+age+"years"+age_month+"Months"+age_day+"days old");
+        </script>
+    </head>
+</html>

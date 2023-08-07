@@ -1,0 +1,11 @@
+1. We first install and setup two virtual machines, here we have taken Windows XP as the target and Kali Linux as the attacker.
+2. We then have to setup the network on the two VMs to make sure they both are in the same network and both of them get IP address.
+3. Then we power on both the VMs.
+4. Switch to Windows XP and open command prompt and type ipconfig to get its IP address.
+5. Switch to Kali Linux and open terminal and type /sbin/ifconfig to get its IP address.
+6. Then we ping and check if both the system are able to communicate with each other.
+7. Once the pinging is successful, switch to Kali Linux and login with the superuser and start msfconsole.
+8. We will be using synflood for the attack so search synflood and use synflood.
+9. Set the target host at RHOSTS, set the target port at RPORT, and set the number of syns at NUM.
+10. Use Wireshark to capture the packets and type exploit in the terminal to start the DoS attack.
+11. Once all the syns are sent, the attack has been completed.

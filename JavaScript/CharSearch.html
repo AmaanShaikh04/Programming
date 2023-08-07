@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Letter search</title>
+        <script>
+            var str=prompt("Enter your string");
+            var a=prompt("Enter a letter");
+            function charsearch(str,a)
+            {
+                var i;
+                var c=0;
+                for (var i=0;i>=str.length;i++)
+                {
+                    if(str.charAt(i)==a)
+                        c++;
+                }
+                document.write(c);
+            }
+            charsearch(str,a);
+        </script>
+    </head>
+</html>

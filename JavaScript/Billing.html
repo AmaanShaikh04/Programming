@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Billing</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		var amt;
+		var rec;
+		var rate;
+		var qua;
+		var ra;
+		var igst;
+		var sgst;
+		var cgst;
+		var total;
+
+		qua=prompt("Enter quantity");
+		rate=prompt("Enter rate");
+		rec=prompt("Enter Receipt amount");
+		ra=prompt("Enter GST rate");
+
+		amt=qua*rate;
+		total=amt-rec;
+		var per_ra=ra/100;
+		sgst=(per_ra/2)*total;
+		cgst=(per_ra/2)*total;
+		igst=per_ra*total;
+
+		
+		document.write("Quantity: " +qua+ "<br>");
+		document.write("Rate: " +rate+ "<br>");
+		document.write("Amount : " +amt+ "<br>");
+		document.write("Receipt Amount : " +rec+ "<br>");
+		document.write("Total Amount : " +total+ "<br>");
+		document.write("SGST : " +sgst+ "<br>");
+		document.write("CGST : " +cgst+ "<br>");
+		document.write("IGST : " +igst+ "<br>");
+	
+	</script>
+</body>
+</html>

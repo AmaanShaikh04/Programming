@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=SimpleKey1
+comment0.text=\r\n<applet\ code\="SimpleKey1"\ width\=300\ height\=100>\r\n</applet>\r\n
+comment1.params=
+comment1.target=void\ init()
+comment2.params=ke
+comment2.target=void\ keyPressed(java.awt.event.KeyEvent)
+comment3.params=ke
+comment3.target=void\ keyReleased(java.awt.event.KeyEvent)
+comment4.params=ke
+comment4.target=void\ keyTyped(java.awt.event.KeyEvent)
+comment5.params=g
+comment5.target=void\ paint(java.awt.Graphics)
+numComments=6

@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>First 3 Small</title>
+        <script>
+            var str=prompt("Enter string");
+            if (str.length<=3)
+            { 
+                str.toUpperCase();
+                document.write(str);
+            }
+            var part1=(str.substring(0,3)).toLowerCase();
+            var part2=str.substring(3,str.length);
+            var part3=part1+part2;
+            document.write(part3);
+        </script>
+    </head>
+</html>

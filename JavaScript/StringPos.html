@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Substring</title>
+        <script>
+            var str=prompt("Enter a string");
+            var pos=prompt("Enter the position");
+            var l=str.length;
+            var part1=str.substring(0,pos);
+            var part2=str.substring(pos+1,l);
+            var part3=part1.concat(part2);
+            document.write(part3);
+        </script>
+    </head>
+</html>
