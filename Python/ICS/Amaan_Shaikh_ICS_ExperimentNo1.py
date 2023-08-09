@@ -1,6 +1,7 @@
 # Experiment No 1
 # Author: Amaan Shaikh
 # Branch: TYCSE-A
+# PRN: 1032221184
 # File name: Amaan_Shaikh_ICS_ExperimentNo1.py
 
 
@@ -98,30 +99,27 @@ def decrypt(ciphertext, key):
 
 def main():
     plain_text = input("Enter the Plain Text: ")
-    key_caesar = 4
-    key_monoalphabetic = "ZYXWVUTSRQPONMLKJIHGFEDCBA"
 
-    # Ceaser Cipher
+    cipher_choice = input("Choose a cipher (1 for Caesar, 2 for Monoalphabetic): ")
 
-    # Encrypt the plain_text using the Caesar cipher with the given key
-    caesar_ciphertext = caesar_cipher_encrypt(plain_text, key_caesar)
-    print("Plain text message:\n", plain_text)
-    print("Encrypted ciphertext using Caesar cipher:\n", caesar_ciphertext)
+    if cipher_choice == '1':
+        key_caesar = 4
+        caesar_ciphertext = caesar_cipher_encrypt(plain_text, key_caesar)
+        print("Encrypted ciphertext using Caesar cipher:\n", caesar_ciphertext)
 
-    # Decrypt the ciphertext back to the original plain_text using the same key
-    caesar_decrypted_msg = caesar_cipher_decrypt(caesar_ciphertext, key_caesar)
-    print("The decrypted message using Caesar cipher is:\n", caesar_decrypted_msg)
+        caesar_decrypted_msg = caesar_cipher_decrypt(caesar_ciphertext, key_caesar)
+        print("The decrypted message using Caesar cipher is:\n", caesar_decrypted_msg)
 
-    # Mono-alphabetic Cipher
+    elif cipher_choice == '2':
+        key_monoalphabetic = "ZYXWVUTSRQPONMLKJIHGFEDCBA"
+        monoalphabetic_ciphertext = encrypt(plain_text, key_monoalphabetic)
+        print("Encrypted ciphertext using monoalphabetic cipher:\n", monoalphabetic_ciphertext)
 
-    # Encrypt the plain_text using the mono-alphabetic cipher with the given key
-    monoalphabetic_ciphertext = encrypt(plain_text, key_monoalphabetic)
-    print("Encrypted ciphertext using monoalphabetic cipher:\n", monoalphabetic_ciphertext)
+        monoalphabetic_decrypted_msg = decrypt(monoalphabetic_ciphertext, key_monoalphabetic)
+        print("The decrypted message using monoalphabetic cipher is:\n", monoalphabetic_decrypted_msg)
 
-    # Decrypt the ciphertext back to the original plain_text using the same key
-    monoalphabetic_decrypted_msg = decrypt(monoalphabetic_ciphertext, key_monoalphabetic)
-    print("The decrypted message using monoalphabetic cipher is:\n", monoalphabetic_decrypted_msg)
-
+    else:
+        print("Invalid choice. Please select 1 or 2.")
 
 if __name__ == "__main__":
     main()
