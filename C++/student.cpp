@@ -1,37 +1,45 @@
-/*
-	Filename: student.cpp
-	Description: Display the input taken of a student's name, roll number, and class. 
-*/
-
 #include <iostream>
-
 using namespace std;
-
+#define MAX 10
 class student
 {
-public:
-	int rn;
-	char name[20], cls[10];
-	
-	void ip()
-	{
-		cout << "Enter the name , roll number and class of a student: ";
-		cin >> name;
-		cin >> rn;
-		cin >> cls;	
-	}
-	
-	void op()
-	{
-		cout << "\nName: " << name << "\nRoll number: " << rn << "\nClass: " << cls << "\n";
-	}
+    private:
+        char name[30];
+        char class1[20];
+        int rollNo;
+        int total;
+        float perc;
+    public:
+        void getDetails(void);
+        void putDetails(void);
 };
-
+void student::getDetails(void)
+{
+    cout << "Enter name: " ;
+    cin >> name;
+    cout << "Enter roll number: ";
+    cin >> rollNo;
+    cout << "Enter class: " ;
+    cin >> class1;
+    cout << "Enter total marks outof 500: ";
+    cin >> total; 
+    perc=(float)total/500*100;
+}
+void student::putDetails(void)
+{
+	cout << "\nEnter details of student:\n";
+	this->getDetails();
+	cout << "\nStudent details:\n";
+    cout << "Name:"<< name;
+	cout << "\nRoll Number:" << rollNo;
+	cout << "\nTotal:" << total;
+	cout << "\nPercentage:" << perc;
+	cout << "%\nClass:" << class1;
+}
 int main()
 {
-	student s1;
-	
-	s1.ip();
-	s1.op();
+    student std[MAX];
+    cout << "Details of student:\n";
+    std[1].putDetails();
+    return 0;
 }
-//EOF

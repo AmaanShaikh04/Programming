@@ -5,8 +5,8 @@ class Book
 {
     private:
         char book_name[30];
-        int price;
-        int no_of_pages;
+        int price,pages;
+        char au_name[30];
     public:
         void getDetails(void);
         void putDetails(void);
@@ -17,28 +17,35 @@ void Book::getDetails(void)
     cin >> book_name;
     cout << "Enter price of the book: ";
     cin >> price;
-    cout << "Enter No of pages: ";
-    cin >> no_of_pages;
+    cout << "Enter no of pages: ";
+    cin >> pages;
+    cout << "Enter Author's name': ";
+    cin >> au_name;
 }
 void Book::putDetails(void)
 {
     cout << "Book details:-\n";
-    cout << "Book name:"<< book_name << "\nPrice:" << price << "\nNo of Pages:" << no_of_pages <<"\n\n";
+    cout << "Book name:"<< book_name;
+	cout << "\nPrice:" << price;
+	cout << "\nPages:" << pages;
+	cout << "\nAuthor's Name:" << au_name <<"\n\n";
 }
 int main()
 {
     Book std[MAX];
+    Book *p;
+    p=std;
     int n,i;
     cout << "Enter total number of Books: ";
     cin >> n;
     for(i=0;i< n; i++){
         cout << "Enter details of the Book " << i+1 << ":-\n\n";
-        std[i].getDetails();
+        p->getDetails();
     }
     cout << endl;
     for(i=0;i< n; i++){
         cout << "Details of the Book " << (i+1) << ":-\n\n";
-        std[i].putDetails();
+        p->putDetails();
     }
     return 0;
 
