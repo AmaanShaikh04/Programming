@@ -2,7 +2,7 @@
 # Author: Amaan Shaikh
 # Branch: TYCSE-A
 # PRN: 1032221184
-# File name: 8Puzzle.py
+# File name: 8Puzzle_BestFirstSearch.py
 
 import queue
 
