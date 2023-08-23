@@ -1,94 +1,77 @@
+"""
+Experiment No 4
+Author: Amaan Shaikh
+Branch: TYCSE-A
+PRN: 1032221184
+File name: Amaan_Shaikh_ICS_ExperimentNo4.py
+"""
+
 # Write a program using JAVA or Python or C++ to implement RSA Asymmetric
 # Key generation
 # Encryption
 # Decryption
 
-import random
 import math
 
-def is_prime(num):
-    if num <= 1:
-        return False
-    if num <= 3:
-        return True
-    if num % 2 == 0 or num % 3 == 0:
-        return False
-    i = 5
-    while i * i <= num:
-        if num % i == 0 or num % (i + 2) == 0:
-            return False
-        i += 6
-    return True
-
-def gcd(a, b):
-    while b:
-        a, b = b, a % b
-    return a
-
-def mod_inverse(e, phi):
-    d = 0
-    x1 = 0
-    x2 = 1
-    y1 = 1
-    temp_phi = phi
-
-    while e > 0:
-        temp1 = temp_phi // e
-        temp2 = temp_phi - temp1 * e
-        temp_phi = e
-        e = temp2
-
-        x = x2 - temp1 * x1
-        y = d - temp1 * y1
-
-        x2 = x1
-        x1 = x
-        d = y1
-        y1 = y
-
-    if temp_phi == 1:
-        return d + phi
-
+# Function to generate RSA key pair (public key and private key)
 def generate_keypair(p, q):
-    if not (is_prime(p) and is_prime(q)):
-        raise ValueError("Both numbers must be prime.")
-    elif p == q:
-        raise ValueError("p and q cannot be equal.")
-
     n = p * q
     phi = (p - 1) * (q - 1)
 
-    e = random.randrange(2, phi)
-    while gcd(phi, e) != 1:
-        e = random.randrange(2, phi)
+    # Find an appropriate public exponent 'e'
+    for i in range(2, phi):
+        if math.gcd(phi, i) == 1:
+            e = i
+            break
 
-    d = mod_inverse(e, phi)
-    return ((e, n), (d, n))
+    # Find the corresponding private exponent 'd'
+    for j in range(e):
+        d = (1 + (j * phi)) / e
+        if d.is_integer():
+            k = j
+            break
 
+    return ((n, e), (n, d))
+
+# Function to perform encryption using public key
 def encrypt(public_key, plaintext):
-    e, n = public_key
-    encrypted_msg = [pow(ord(char), e, n) for char in plaintext]
-    return encrypted_msg
+    n, e = public_key
+    ciphertext = (plaintext ** e) % n
+    return ciphertext
 
-def decrypt(private_key, encrypted_msg):
-    d, n = private_key
-    decrypted_msg = [chr(pow(char, d, n)) for char in encrypted_msg]
-    return ''.join(decrypted_msg)
+# Function to perform decryption using private key
+def decrypt(private_key, ciphertext):
+    n, d = private_key
+    decrypted_text = (ciphertext ** d) % n
+    return decrypted_text
 
-if __name__ == '__main__':
-    p = int(input("Enter a prime number (p): "))
-    q = int(input("Enter another prime number (q): "))
-    M = int(input("Enter the plaintext (M, where M < n): "))
+# Main program
+def main():
+    print("Enter two prime numbers")
+    p = int(input("p: "))
+    q = int(input("q: "))
 
+    # Generate RSA key pair
     public_key, private_key = generate_keypair(p, q)
-    e, n = public_key
-    d, n = private_key
+    print("Public Key (n, e):", public_key)
+    print("Private Key (n, d):", private_key)
 
-    encrypted_msg = encrypt(public_key, str(M))
-    decrypted_msg = decrypt(private_key, encrypted_msg)
+    # Get the plain text from the user
+    while True:
+        M = int(input("Enter plain text: "))
+        if M >= public_key[0]:
+            print("M should be less than n")
+        else:
+            print("Plain Text:", M)
+            break
 
-    print("Generated public key (PU):", public_key)
-    print("Generated private key (PR):", private_key)
-    print("Plaintext (M):", M)
-    print("Encrypted message:", encrypted_msg)
-    print("Decrypted message:", decrypted_msg)
+    # Encrypt the plain text using the public key
+    C = encrypt(public_key, M)
+    print("Cipher Text:", C)
+
+    # Decrypt the cipher text using the private key
+    m = decrypt(private_key, C)
+    print("Decrypted Text:", m)
+
+if __name__ == "__main__":
+    main()
