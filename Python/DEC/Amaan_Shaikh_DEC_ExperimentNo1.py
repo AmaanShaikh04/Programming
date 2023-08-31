@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+from scipy import stats
+from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 
 # Step 1: Identify and retrieve the dataset
@@ -62,6 +64,42 @@ yearly_changes = df.groupby("Year")["Close"].last() - df.groupby("Year")["Close"
 # Display the rise or fall for each year
 print("\nYearly Rise/Fall:")
 print(yearly_changes)
+
+# Calculate mean, median, and mode for "Open" column
+mean_open = df["Open"].mean()
+median_open = df["Open"].median()
+mode_open = df["Open"].mode()[0]  # Using Pandas' mode function
+
+print("\nMean Open:", mean_open)
+print("Median Open:", median_open)
+print("Mode Open:", mode_open)
+
+# Remove duplicates
+df.drop_duplicates(inplace=True)
+
+print("\nAfter Removing Duplicates:")
+print(df.head())
+
+# Handling outliers (example: removing rows with abnormally high "Volume")
+outlier_threshold = 1000000
+df = df[df["Volume"] < outlier_threshold]
+
+print("\nAfter Handling Outliers:")
+print(df.head())
+
+# Data normalization (scaling numerical features to a common range)
+scaler = MinMaxScaler()
+numerical_columns = ["Prev Close", "Open", "High", "Low", "Last", "Close", "VWAP", "Volume", "Turnover", "Trades", "Deliverable Volume", "%Deliverble"]
+df[numerical_columns] = scaler.fit_transform(df[numerical_columns])
+
+print("\nAfter Data Normalization:")
+print(df.head())
+
+# Data validation: Removing rows with inconsistent or unrealistic values
+df = df[(df["Open"] <= df["High"]) & (df["Open"] >= df["Low"])]
+
+print("\nAfter Data Validation:")
+print(df.head())
 
 """
 # One command of your choice (e.g., getting the unique classes in the 'last' column)
