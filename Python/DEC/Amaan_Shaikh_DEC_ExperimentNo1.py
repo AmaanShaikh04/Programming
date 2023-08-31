@@ -15,9 +15,10 @@ with open("iris.csv", "wb") as file:
     file.write(response.content)
 """
 # Step 1: Read the CSV file using Pandas
-# Read the CSV file into a Pandas DataFrame
-df = pd.read_csv("F:\College Stuff Degree\DEC\IRIS dataset\IRIS Dataset\iris.csv",
-                 header=None, names=["sepal_length", "sepal_width", "petal_length", "petal_width", "class"])
+# Read the CSV file into a Pandas DataFrame, skipping the first row
+df = pd.read_csv("F:\\College Stuff Degree\\DEC\\Nifty 50\\Nifty 50\\TATASTEEL.csv",
+                 skiprows=1, header=None,
+                 names=["Date", "Symbol", "Series", "Prev Close", "Open", "High", "Low", "Last", "Close", "VWAP", "Volume", "Turnover", "Trades", "Deliverable Volume", "%Deliverble"])
 
 # Step 2: Perform various operations on the dataset
 # Display the first few rows of the DataFrame
@@ -36,6 +37,34 @@ print(df.describe())
 print("\nSummary:")
 print(df.info())
 
-# One command of your choice (e.g., getting the unique classes in the 'class' column)
+null_counts = df.isnull().sum()
+print("\nNull Value Counts:")
+print(null_counts)
+
+print("\nNULL values filled with 0")
+# Fill null values with zeros
+df.fillna(0, inplace=True)
+
+null_counts = df.isnull().sum()
+print("\nNull Value Counts:")
+print(null_counts)
+
+# Convert "Date" column to datetime format
+df["Date"] = pd.to_datetime(df["Date"])
+
+# Extract the year from the "Date" column and create a new column "Year"
+df["Year"] = df["Date"].dt.year
+
+# Calculate the rise or fall in the stocks each year
+# Group by "Year" and calculate the difference between the first and last "Close" values in each group
+yearly_changes = df.groupby("Year")["Close"].last() - df.groupby("Year")["Close"].first()
+
+# Display the rise or fall for each year
+print("\nYearly Rise/Fall:")
+print(yearly_changes)
+
+"""
+# One command of your choice (e.g., getting the unique classes in the 'last' column)
 print("\nUnique Classes:")
-print(df["class"].unique())
+print(df["last"].unique())
+"""
