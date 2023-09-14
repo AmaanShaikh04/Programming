@@ -39,6 +39,19 @@ ax.set_xlabel("Close Price")
 ax.set_ylabel("Frequency")
 ax.set_title("TATASTEEL Close Prices Histogram")
 
+# Calculate the y-axis range based on the close price difference of 100
+y_min = min_price - (min_price % 100)
+y_max = 800
+ax.set_ylim(y_min, y_max)
+
+# Set the y-axis ticks with a difference of 100
+y_ticks = range(0, int(y_max) + 100, 100)
+ax.set_yticks(y_ticks)
+
+# Set the x-axis ticks with a difference of 100
+x_ticks = range(0, int(max_price) + 100, 100)
+ax.set_xticks(x_ticks)
+
 # Remove the right and top spines
 sns.despine()
 
