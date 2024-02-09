@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <title>
+            HOME PAGE
+        </title>
+        <link rel="stylesheet" href="first.css">
+    </head>
+    <body>
+        <script>  
+            function validateform(){  
+            var username=document.myform.username.value;  
+            var password=document.myform.password.value;  
+              
+            if (username==null || username==""){  
+              alert("Username can't be blank");  
+              return false;  
+            }else if(password=="" || password==null){  
+              alert("Password cant be blank");  
+              return false;  
+              }
+              
+            }  
+            </script>  
+        <div class="navbar">
+            <a class="active" href="Home.html">Home</a> 
+            <a href="Search.html">Search</a> 
+            <a href="Contact.html">Contact</a> 
+            <a href="Login.html">Login</a>
+          </div>
+          <div class="welcome-box">
+          <h4>
+            Don't Share Your Password:<br>
+                Never share your password with anyone, including friends or family.
+                Avoid writing down your password or storing it in easily accessible places.
+                <br><br><br><br><br>
+            Enable Two-Factor Authentication (2FA):<br>
+            Whenever possible, enable two-factor authentication for an extra layer of security.
+            This typically involves receiving a one-time code on your phone or email to verify your identity.
+            <br>
+            <br>
+        </h4>
+        </div>
+        <form name="myform" action="" onsubmit="return validateform()" method="POST">  
+            <div class="container">   
+                <label>Username : </label>   
+                <input type="text" id="user" placeholder="Enter Username" name="username" >  
+                <label>Password : </label>   
+                <input type="password" id="pass" placeholder="Enter Password" name="password" >  
+                <button type="submit">Login</button>   
+                <input type="checkbox" checked="checked"> Remember me   
+                <button type="button" class="cancelbtn"> Cancel</button>   
+                Forgot <a href="#"> password? </a>   
+            </div>   
+        </form>     
+    </body>
+</html>

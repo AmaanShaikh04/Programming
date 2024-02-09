@@ -1,4 +1,4 @@
-# Import necessary modules and classes
+# Import the necessary modules and classes
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers.modes import ECB
@@ -18,6 +18,7 @@ def generate_round_keys(key):
 
 # Function to perform AES encryption
 def perform_encryption(key, plaintext):
+
     backend = default_backend()
     cipher = Cipher(algorithms.AES(key), ECB(), backend=backend)
     encryptor = cipher.encryptor()
