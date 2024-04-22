@@ -1,4 +1,4 @@
-GRANT ALL PRIVILEGES ON chatbot_career.* TO 'root'@'localhost';
+GRANT ALL PRIVILEGES ON career_chatbot.* TO 'root'@'localhost';
 
 -- Drop the database if it exists
 DROP DATABASE IF EXISTS career_chatbot;

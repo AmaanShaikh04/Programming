@@ -65,6 +65,7 @@ def search_data(user_query, cursor, target_category, target_domain, user_year_of
     params = ['%' + keyword + '%' for keyword in keywords]
 
     if target_category:
+        print(target_domain)
         query_str += " AND domain = %s"
         params.append(target_domain)
 
