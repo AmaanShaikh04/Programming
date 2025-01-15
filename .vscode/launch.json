@@ -6,6 +6,40 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Assign1",
+            "request": "launch",
+            "mainClass": "Assign1",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "SSCD1",
+            "request": "launch",
+            "mainClass": "SSCD1",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "ProcessNumbers",
+            "request": "launch",
+            "mainClass": "ProcessNumbers",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "ReadFile",
+            "request": "launch",
+            "mainClass": "ReadFile"
+        },
+        {
+            "type": "java",
+            "name": "FileReader",
+            "request": "launch",
+            "mainClass": "FileReader",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Alpha",
             "request": "launch",
             "mainClass": "Alpha",

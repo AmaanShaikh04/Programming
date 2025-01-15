@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Assign1",
+            "request": "launch",
+            "mainClass": "Assign1",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
+            "name": "ParseOpcodes",
+            "request": "launch",
+            "mainClass": "ParseOpcodes",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
+            "name": "ReadFile",
+            "request": "launch",
+            "mainClass": "ReadFile",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
+            "name": "SSCD1",
+            "request": "launch",
+            "mainClass": "SSCD1",
+            "projectName": "SSCD_bb7bcd7d"
+        }
+    ]
+}
