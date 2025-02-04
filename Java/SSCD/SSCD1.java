@@ -6,7 +6,8 @@ import java.util.*;
 
 public class SSCD1 {
     public static void main(String[] args) {
-        String inputFilePath = "input.txt";
+        String inputFilePath = "assembler_input.txt";
+        String outputFilePath = "intermediate_code.txt";
 
         int locationCounter = 0;
         Map<String, Integer> symbolTable = new LinkedHashMap<>();
@@ -44,16 +45,27 @@ public class SSCD1 {
         registerCodes.put("CREG", "3");
         registerCodes.put("DREG", "4");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
+             PrintWriter writer = new PrintWriter(new FileWriter(outputFilePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.trim().split("\\s+|,");
 
                 if (tokens[0].equalsIgnoreCase("START")) {
-                    locationCounter = Integer.parseInt(tokens[1]);
-                    intermediateCode.add("- (AD,01) (C," + tokens[1] + ")");
+                    if (tokens.length > 1) {
+                        try {
+                            locationCounter = Integer.parseInt(tokens[1]);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Invalid location counter for START. Defaulting to 0.");
+                            locationCounter = 0;
+                        }
+                    } else {
+                        locationCounter = 0;
+                    }
+                    intermediateCode.add("0 (AD,01) (C," + locationCounter + ")");
                     continue;
                 }
+                
 
                 String label = null;
                 String opcode = null;
@@ -66,20 +78,30 @@ public class SSCD1 {
                     operand1 = tokens[2];
                     operand2 = tokens[3];
                 } else if (tokens.length == 3) {
-                    opcode = tokens[0];
-                    operand1 = tokens[1];
-                    operand2 = tokens[2];
+                    if (DL.containsKey(tokens[1])) {
+                        label = tokens[0];
+                        opcode = tokens[1];
+                        operand1 = tokens[2];
+                    } else {
+                        opcode = tokens[0];
+                        operand1 = tokens[1];
+                        operand2 = tokens[2];
+                    }
                 } else if (tokens.length == 2) {
-                    opcode = tokens[0];
-                    operand1 = tokens[1];
+                    if (DL.containsKey(tokens[0])) {
+                        opcode = tokens[0];
+                        operand1 = tokens[1];
+                    } else {
+                        opcode = tokens[0];
+                        operand1 = tokens[1];
+                    }
                 } else if (tokens.length == 1) {
                     opcode = tokens[0];
                 }
-
+                 
                 if (label != null && !symbolTable.containsKey(label)) {
                     symbolTable.put(label, locationCounter);
                 }
-
                 if (IS.containsKey(opcode)) {
                     String code = "(IS," + IS.get(opcode) + ")";
                     String regCode = registerCodes.getOrDefault(operand1, "0");
@@ -96,7 +118,8 @@ public class SSCD1 {
                         intermediateCode.add(locationCounter + " " + code + " (" + regCode + ") " + operandCode);
                     }
                     locationCounter++;
-                } else if (DL.containsKey(opcode)) {
+                
+                } if (DL.containsKey(opcode)) {
                     if (label != null) {
                         symbolTable.put(label, locationCounter);
                         int length = opcode.equals("DS") ? Integer.parseInt(operand1) : 1;
@@ -104,43 +127,39 @@ public class SSCD1 {
                         intermediateCode.add(locationCounter + " (S," + getSymbolIndex(symbolTable, label) + ") (DL," + DL.get(opcode) + ") (C," + operand1 + ")");
                         locationCounter += length;
                     }
-                } else if (AD.containsKey(opcode)) {
+                } if (AD.containsKey(opcode)) {
                     if (opcode.equals("ORIGIN")) {
-                        locationCounter = symbolTable.getOrDefault(operand1, locationCounter);
+                        locationCounter = Integer.parseInt(operand1);
                         intermediateCode.add("- (AD," + AD.get(opcode) + ") (C," + operand1 + ")");
                     } else {
                         intermediateCode.add("- (AD," + AD.get(opcode) + ")");
                     }
                 }
             }
+
+            writer.println("Location IntermediateCode");
+            for (String code : intermediateCode) {
+                String[] parts = code.split(" ", 2);
+                String location = parts[0];
+                String instrCode = parts.length > 1 ? parts[1] : "";
+                writer.println(location + " " + instrCode);
+            }
+
+            writer.println();
+            writer.println("ID SymbolName Address Length");
+            int id = 1;
+            for (Map.Entry<String, Integer> entry : symbolTable.entrySet()) {
+                String symbol = entry.getKey();
+                int address = entry.getValue();
+                int length = symbolLengths.getOrDefault(symbol, 1);
+                writer.println(id++ + " " + symbol + " " + address + " " + length);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Intermediate Code Table (Opcode Table):");
-        System.out.println("+----------------+----------------------------+");
-        System.out.println("|    Location    |     Intermediate Code      |");
-        System.out.println("+----------------+----------------------------+");
-        intermediateCode.forEach(code -> {
-            String[] parts = code.split(" ", 2);
-            String location = parts[0];
-            String instrCode = parts.length > 1 ? parts[1] : "";
-            System.out.printf("| %-14s | %-26s |\n", location, instrCode);
-        });
-        System.out.println("+----------------+----------------------------+\n");
-
-        System.out.println("Symbol Table:");
-        System.out.println("+----+---------------------+------------------+--------+");
-        System.out.println("| ID |     Symbol Name     |     Address      | Length |");
-        System.out.println("+----+---------------------+------------------+--------+");
-        int id = 1;
-        for (Map.Entry<String, Integer> entry : symbolTable.entrySet()) {
-            String symbol = entry.getKey();
-            int address = entry.getValue();
-            int length = symbolLengths.getOrDefault(symbol, 1);
-            System.out.printf("| %-2d | %-19s | %-16d | %-6d |\n", id++, symbol, address, length);
-        }
-        System.out.println("+----+---------------------+------------------+--------+");
+        System.out.println("\nPass 1 Assembler Execution Complete. Output written to " + outputFilePath);
     }
 
     private static int getSymbolIndex(Map<String, Integer> symbolTable, String symbol) {
