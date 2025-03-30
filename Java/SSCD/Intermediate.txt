@@ -1,3 +1,0 @@
-START
-M1 A, B
-END

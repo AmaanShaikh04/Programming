@@ -1,2 +1,0 @@
-MNT Index  Name       MDT Index 
-1          M1         1         
