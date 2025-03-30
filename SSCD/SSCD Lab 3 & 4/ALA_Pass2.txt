@@ -1,0 +1,3 @@
+Index      Formal Arg      Actual Arg      Macro Name
+#1         &1              A               M1        
+#2         &2              B               M1        
