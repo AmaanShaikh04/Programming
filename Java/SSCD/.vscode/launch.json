@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SSCD3",
+            "request": "launch",
+            "mainClass": "Macro.SSCD3",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
+            "name": "Lab2",
+            "request": "launch",
+            "mainClass": "Lab2",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
+            "name": "SSCD3",
+            "request": "launch",
+            "mainClass": "SSCD3",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "test",
+            "projectName": "SSCD_bb7bcd7d"
+        },
+        {
+            "type": "java",
             "name": "SSCD2",
             "request": "launch",
             "mainClass": "SSCD2",

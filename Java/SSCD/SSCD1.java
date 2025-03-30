@@ -1,5 +1,5 @@
 // Amaan Shaikh
-// Assembler Pass 1 and Data Structures
+// Assembler Pass 1
 
 import java.io.*;
 import java.util.*;
@@ -62,7 +62,7 @@ public class SSCD1 {
                     } else {
                         locationCounter = 0;
                     }
-                    intermediateCode.add("0 (AD,01) (C," + locationCounter + ")");
+                    intermediateCode.add("- AD,01 C," + locationCounter);
                     continue;
                 }
                 
@@ -79,9 +79,9 @@ public class SSCD1 {
                     operand2 = tokens[3];
                 } else if (tokens.length == 3) {
                     if (DL.containsKey(tokens[1])) {
-                        label = tokens[0];
+                        operand1 = tokens[0];
                         opcode = tokens[1];
-                        operand1 = tokens[2];
+                        operand2 = tokens[2];
                     } else {
                         opcode = tokens[0];
                         operand1 = tokens[1];
@@ -103,49 +103,40 @@ public class SSCD1 {
                     symbolTable.put(label, locationCounter);
                 }
                 if (IS.containsKey(opcode)) {
-                    String code = "(IS," + IS.get(opcode) + ")";
+                    String code = "IS," + IS.get(opcode);
                     String regCode = registerCodes.getOrDefault(operand1, "0");
                     String operandCode;
                     if (isNumeric(operand2)) {
-                        operandCode = "(C," + operand2 + ")";
+                        operandCode = "C," + operand2;
                         constants.add(operand2);
                     } else {
-                        operandCode = operand2 != null ? "(S," + getSymbolIndex(symbolTable, operand2) + ")" : "";
+                        operandCode = operand2 != null ? "S," + getSymbolIndex(symbolTable, operand2) : "";
                     }
                     if (label != null) {
-                        intermediateCode.add(locationCounter + " (S," + getSymbolIndex(symbolTable, label) + ") " + code + " (" + regCode + ") " + operandCode);
+                        intermediateCode.add(locationCounter + " " + code + " " + regCode + " " + operandCode);
                     } else {
-                        intermediateCode.add(locationCounter + " " + code + " (" + regCode + ") " + operandCode);
+                        intermediateCode.add(locationCounter + " " + code + " " + regCode + " " + operandCode);
                     }
                     locationCounter++;
                 
                 } if (DL.containsKey(opcode)) {
-                    if (label != null) {
-                        symbolTable.put(label, locationCounter);
-                        int length = opcode.equals("DS") ? Integer.parseInt(operand1) : 1;
-                        symbolLengths.put(label, length);
-                        intermediateCode.add(locationCounter + " (S," + getSymbolIndex(symbolTable, label) + ") (DL," + DL.get(opcode) + ") (C," + operand1 + ")");
+                    if (operand1 != null) {
+                        symbolTable.put(operand1, locationCounter);
+                        int length = opcode.equals("DS") ? Integer.parseInt(operand2) : 1;
+                        symbolLengths.put(operand1, length);
+                        intermediateCode.add(locationCounter + " DL," + DL.get(opcode) + " C," + operand2);
                         locationCounter += length;
                     }
                 } if (AD.containsKey(opcode)) {
                     if (opcode.equals("ORIGIN")) {
                         locationCounter = Integer.parseInt(operand1);
-                        intermediateCode.add("- (AD," + AD.get(opcode) + ") (C," + operand1 + ")");
+                        intermediateCode.add("- AD," + AD.get(opcode) + " C," + operand1);
                     } else {
-                        intermediateCode.add("- (AD," + AD.get(opcode) + ")");
+                        intermediateCode.add("- AD," + AD.get(opcode));
                     }
                 }
             }
 
-            writer.println("Location IntermediateCode");
-            for (String code : intermediateCode) {
-                String[] parts = code.split(" ", 2);
-                String location = parts[0];
-                String instrCode = parts.length > 1 ? parts[1] : "";
-                writer.println(location + " " + instrCode);
-            }
-
-            writer.println();
             writer.println("ID SymbolName Address Length");
             int id = 1;
             for (Map.Entry<String, Integer> entry : symbolTable.entrySet()) {
@@ -154,6 +145,17 @@ public class SSCD1 {
                 int length = symbolLengths.getOrDefault(symbol, 1);
                 writer.println(id++ + " " + symbol + " " + address + " " + length);
             }
+            writer.println();
+            writer.println("Location IntermediateCode");
+            for (String code : intermediateCode) {
+                String[] parts = code.split(" ", 2);
+                String location = parts[0];
+                String instrCode = parts.length > 1 ? parts[1] : "";
+                writer.println(location + " " + instrCode);
+            }
+
+            
+            
 
         } catch (IOException e) {
             e.printStackTrace();

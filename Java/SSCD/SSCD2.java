@@ -17,24 +17,35 @@ public class SSCD2 {
             
             String line;
             boolean symbolTableStart = false;
+            boolean intermediateCodeStart = false;
+
             while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
                 if (line.startsWith("ID SymbolName")) {
                     symbolTableStart = true;
                     continue;
                 }
-                
-                if (symbolTableStart) {
-                    String[] parts = line.trim().split("\s+");
+
+                if (symbolTableStart && !intermediateCodeStart) {
+                    if (line.startsWith("Location")) {
+                        intermediateCodeStart = true;
+                        continue;
+                    }
+                    String[] parts = line.split("\\s+");
                     if (parts.length == 4) {
                         int id = Integer.parseInt(parts[0]);
                         int address = Integer.parseInt(parts[2]);
                         symbolAddresses.put(id, address);
                     }
-                } else {
-                    if (line.trim().isEmpty() || line.startsWith("Location") || line.contains("(AD,")) {
+                } else if (intermediateCodeStart) {
+                    if (line.isEmpty() || line.startsWith("-")) {
                         continue;
                     }
-                    machineCode.add(processInstruction(line, symbolAddresses));
+                    String output = processInstruction(line, symbolAddresses);
+                    if (!output.isEmpty()) {
+                        machineCode.add(output);
+                    }
                 }
             }
             
@@ -54,30 +65,33 @@ public class SSCD2 {
         String[] parts = line.trim().split(" ");
         String location = parts[0];
         StringBuilder machineCode = new StringBuilder(location + " ");
-    
         boolean instructionProcessed = false;
-    
+
         for (int i = 1; i < parts.length; i++) {
             String token = parts[i];
-    
-            if (token.startsWith("(C,")) {
-                machineCode.append(token.substring(3, token.length() - 1)).append(" ");
-            } else if (token.startsWith("(S,")) {
-                int symbolId = Integer.parseInt(token.substring(3, token.length() - 1));
+
+            if (token.startsWith("C,")) {
+                machineCode.append(token.substring(2)).append(" ");
+            } else if (token.startsWith("S,")) {
+                int symbolId = Integer.parseInt(token.substring(2));
                 if (symbolAddresses.containsKey(symbolId)) {
                     machineCode.append(symbolAddresses.get(symbolId)).append(" ");
+                } else {
+                    System.out.println("Warning: Symbol ID " + symbolId + " not found in symbol table.");
+                    machineCode.append("?? ");
                 }
-            } else if (token.startsWith("(IS,")) {
-                machineCode.append(token.substring(4, token.length() - 1)).append(" ");
+            } else if (token.startsWith("IS,")) {
+                machineCode.append(token.substring(4)).append(" ");
                 instructionProcessed = true;
-            } else if (token.startsWith("(DL,")) {
+            } else if (token.startsWith("DL,")) {
                 continue;
-            } else if (token.matches("\\(\\d+\\)")) { 
+            } else if (token.matches("\\d+")) { 
                 machineCode.append(token).append(" ");
+            } else {
+                System.out.println("Warning: Unexpected token " + token);
             }
         }
 
         return instructionProcessed ? machineCode.toString().trim() : "";
     }
-    
 }
