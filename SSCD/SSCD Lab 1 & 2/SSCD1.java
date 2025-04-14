@@ -88,13 +88,8 @@ public class SSCD1 {
                         operand2 = tokens[2];
                     }
                 } else if (tokens.length == 2) {
-                    if (DL.containsKey(tokens[0])) {
                         opcode = tokens[0];
                         operand1 = tokens[1];
-                    } else {
-                        opcode = tokens[0];
-                        operand1 = tokens[1];
-                    }
                 } else if (tokens.length == 1) {
                     opcode = tokens[0];
                 }
