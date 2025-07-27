@@ -1,0 +1,5 @@
+Index Instruction
+1 M1 #1,#2
+2 MOVER #1, A
+3 ADD #1, B
+4 MEND

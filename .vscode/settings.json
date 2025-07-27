@@ -1,4 +1,5 @@
 {
     "python.pythonPath": "C:\\Users\\Riz\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "C_Cpp.errorSquiggles": "enabled"
 }
